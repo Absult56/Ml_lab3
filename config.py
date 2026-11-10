@@ -1,35 +1,23 @@
-"""Конфигурация лабораторной работы №3, вариант 12."""
-
 from pathlib import Path
 
-# Путь к исходному файлу
-DATA_FILE = Path(r"D:\projects\python\ML_lab\lab3\data_12var\Lab3_Dataset.xlsx")
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE = BASE_DIR / r"D:\projects\python\ML_lab\lab3\data_12var\Lab3_Dataset.xlsx"
 SHEET_NAME = "Sheet1"
+OUT_DIR = BASE_DIR / r"D:\projects\python\ML_lab\lab3\results"
+OUT_DIR.mkdir(exist_ok=True)
 
-# Номер варианта и соответствующие столбцы (0-based индексы pandas)
 VARIANT = 12
-# Столбцы варианта 12: AJ..AO  ->  индексы 35..40 (0-based)
-COLUMN_MAP = {
-    "a": 35,  # AJ
-    "b": 36,  # AK
-    "c": 37,  # AL
-    "d": 38,  # AM
-    "e": 39,  # AN
-    "y": 40,  # AO
-}
-
-# Строка, с которой начинаются числовые данные (0-based после чтения без header)
-# В файле шапка занимает 3 строки: заголовки, "Вариант N", a/b/c/d/e/y
+COLUMN_MAP = {"a": 35, "b": 36, "c": 37, "d": 38, "e": 39, "y": 40}
 DATA_START_ROW = 3
+FEATURES = ["a", "b", "c", "d", "e"]
+TARGET = "y"
 
-# Параметры разбиения
-TEST_SIZE = 0.25
+TRAIN_RATIO, VAL_RATIO = 0.70, 0.15      # test = 0.15
 RANDOM_STATE = 42
 
-# Порог значимости корреляции
-CORR_THRESHOLD = 0.3
-ALPHA = 0.05
-
-# Директория для результатов
-OUT_DIR = Path(r"D:\projects\python\ML_lab\lab3\`results")
-OUT_DIR.mkdir(exist_ok=True)
+# Neural nets
+SEQ_LEN = 1           # 1 шаг вперёд
+SEQ_LEN_MULTI = 7     # 7 шагов вперёд
+EPOCHS = 60
+BATCH_SIZE = 32
+LR = 1e-3
